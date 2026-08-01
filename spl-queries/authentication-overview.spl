@@ -1,0 +1,17 @@
+# Total SSH Events
+source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json"
+| stats count AS "Total SSH Events"
+
+# Successful Logins
+source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json" event_type="Successful SSH Login"
+| stats count AS "Successful Logins"
+
+# Failed Logins
+source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json" event_type="Failed SSH Login"
+| stats count AS "Failed Login"
+
+# Connection Without Authentication (adapted from lab's "Invalid User Attempts" — 
+# this dataset uses event_type="Connection Without Authentication" instead of 
+# an "invalid user" index/text match)
+source="ssh_logs_new.json" host="LinuxServer" sourcetype="_json" event_type="Connection Without Authentication"
+| stats count AS "Connection Without Authentication"
